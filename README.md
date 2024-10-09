@@ -4,8 +4,8 @@
 
 This repository contains scripts which were used as part of the review paper "**[Your Paper Title]**".
 
-The R script provides an estimation of limitation within a crop canopy using a steady-state model. The vertical profile data used i nthe model are taken from https://doi.org/10.5194/bg-17-4375-2020. Typical parameters for wheat were used (cited in the paper). The script uses a nested iterative procedure to find the steady state photosynthesis rate.
-The Julia script uses an ODE solver to calculate photosynthesis over a time period, including a simple induction and relaxation model. It uses typical values for a tomato crop to show limitations by the boundary layer.
+-The R script provides an estimation of limitation within a crop canopy using a steady-state model. The vertical profile data used i nthe model are taken from https://doi.org/10.5194/bg-17-4375-2020. Typical parameters for wheat were used (cited in the paper). The script uses a nested iterative procedure to find the steady state photosynthesis rate.
+-The Julia script uses an ODE solver to calculate photosynthesis over a time period, including a simple induction and relaxation model. It uses typical values for a tomato crop to show limitations by the boundary layer.
 
 
 ## Repository Contents
