@@ -74,7 +74,7 @@ H0.80 <- 0.80
 
 #Averages for an afternoon for one day
 df_sum_iop1 <- cleaned_data %>%
-  filter(date %in%as.Date(c("2018-07-02")),
+  filter(date %in%as.Date(c("2018-06-15")),
          X <= H0.80) %>% 
   mutate(time = lubridate::hms(paste0(time, ":00"))) %>%  
   filter(time >= lubridate::hms("12:00:00") & time <= lubridate::hms("16:00:00")) %>%  
@@ -328,7 +328,7 @@ df_final <- df_sum_iop1 %>%
   mutate(photosynthesis = FvCB(PAR, Ci, Tl, Pa, Vcmax25, Jmax25, gm25, Abs, Curv, Rd25)[[1]]) %>%
   ungroup()
 
-write.csv(df_final, "0702_afternoon_PAR1600_d015_gbvar.csv")
+write.csv(df_final, "0615_afternoon_PAR1600_d015_gbvar.csv")
 
 
 ###############################
@@ -343,7 +343,7 @@ df_final_infinite_gb <- df_sum_iop1 %>%
   mutate(photosynthesis = FvCB(PAR, Ci, Tl, Pa, Vcmax25, Jmax25, gm25, Abs, Curv, Rd25)[[1]]) %>%
   ungroup()      
 
-write.csv(df_final_infinite_gb, "0702_afternoon_PAR1600_d015_gbinf.csv")
+write.csv(df_final_infinite_gb, "0615_afternoon_PAR1600_d015_gbinf.csv")
 
 ggplot() +
   geom_point(data = df_final, aes(x = X, y = photosynthesis)) +  
