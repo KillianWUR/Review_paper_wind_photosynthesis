@@ -1,4 +1,4 @@
-# Leaf photosynthesis modelling with coupled photosynthesis, stomatal conductance and energy balance model, including all conductances according to Fick's law from the ambient air to the chloroplast.
+# Leaf photosynthesis modelling with coupled photosynthesis, stomatal conductance and energy balance model, incl. all conductances according to Fick's law.
 
 ## Overview
 
