@@ -17,9 +17,9 @@ library(readr)
 ###############################
 #Read in data
 ###############################
-setwd("C:/R/new_phyto_review/Cloudroots")
+setwd("C:/R/Cloudroots")
 
-root_dir <- "C:/R/new_phyto_review/Cloudroots"
+root_dir <- "C:/R/Cloudroots"
 file_paths <- list.files(root_dir, pattern = "prof.csv", full.names = TRUE, recursive = TRUE)
 
 read_prof_file <- function(file_path) {
