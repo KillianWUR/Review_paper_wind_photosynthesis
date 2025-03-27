@@ -126,7 +126,7 @@ calculate_gb <- function(d, T_C, u){ # Brenner and Jarvis, 1995 (https://doi.org
   Dw <- temperature_correction(T_C, Dw20)
   v <- temperature_correction(T_C, v20)
   T_K <- T_C+273.15
-  gb_mm_w <- 1*(0.664*Dw^(2/3)*u^0.5)/(d^0.5*v^0.17) # one sided
+  gb_mm_w <- 2*(0.664*Dw^(2/3)*u^0.5)/(d^0.5*v^0.17) # two sided gb, divide by 2 for one-sided 
   gb_w <- Pa/(R*T_K)*gb_mm_w/1000
   return(gb_w)
 }
@@ -206,7 +206,7 @@ energy_balance <- function(PAR, Tair, E, gb_leaf, RH) { #taken from LI6800 (http
   net_rad <- Rabs + 2 * 0.95 * 5.67e-8 * ((Tw + 273.15)^4 - (Tair + 273.15)^4)  # Net radiation balance
   tran <- LatentHeat(Tair + 273.15) * E * 0.01801528 # Transpiration in W m-2
 
-  dT <- (net_rad - tran) / (1.84 * Cp * gbm + 8 * 0.95 * 5.67e-8 * (Tair + 273.15)^3)
+  dT <- (net_rad - tran) / (0.92 * Cp * gbm + 8 * 0.95 * 5.67e-8 * (Tair + 273.15)^3)
   Tl <- Tair + dT
   
   return(Tl) 
@@ -294,6 +294,7 @@ photosynthesis_iteration <- function(Ca, Tair, PPFD, gb, RH){
     if (abs(Ci - Ci_new) < threshold_Ci) {
       Tl_new <- energy_balance(PPFD, Tair, leaf_transpiration(gs_new, gb, RH, Tair, Tl), gb, RH)
       print(paste("Current Tl:", Tl, "New Tl:", Tl_new))
+      Tl_new <- (Tl_new + Tl) / 2
       print(paste("Current gs:", gs, "New gs:", gs_new))
       
       #Check if both Tl and gs have converged
