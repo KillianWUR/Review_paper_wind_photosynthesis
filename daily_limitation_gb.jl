@@ -1,8 +1,8 @@
 # Coupled photosynthesis, stomatal and energy balance model
 # Dynamic model with ODE solver
 
-# Author: Silvere Vialet-Chabramd
-# Date: 09/10/2024
+# Author: Silvere Vialet-Chabrand
+# Date: 27/3/2025
 
 using Statistics, Plots, Measures, DifferentialEquations, SciMLSensitivity, ComponentArrays, DataFrames, CSV
 CA = ComponentArray
