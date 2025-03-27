@@ -93,7 +93,7 @@ function GE!(dy, y, p, t, env)
 
     dy[1] = 2.0 * 0.97 * 5.6703e-8 * ((Trefl + 273.15)^4 - (y[1] + 273.15)^4)
     dy[1] += p.Abssw * p.kSun * PAR
-    dy[1] -= 2.0 * rho * Cs * 0.92 * gbm * (y[1] - Tair)
+    dy[1] -= rho * Cs * 0.92 * gbm * (y[1] - Tair)
 
     lambda = LatentHeat(y[1] + 273.15)
     vpd = SatVap(y[1]) - ea
@@ -148,7 +148,7 @@ function plotSim(time, p, env)
 end
 
 function plotSimR(time, p, env)
-    p.gb = 0.15
+    p.gb = 0.20 #note: input is double sided, divide by 2 for one sided (here amphistomatous leaf)
     tmp1 = pred(time, p, env)
     p.gb = 0.3
     tmp2 = pred(time, p, env)
@@ -159,18 +159,18 @@ function plotSimR(time, p, env)
 
     p1 = plot(time ./ 3600.0, env.PAR.(time), xlabel="Time (hours)", ylabel="PAR")
 
-    p2 = plot(time ./ 3600.0, view(tmp1, 1, :), label="0.15", xlabel="Time (hours)", ylabel="Temperature", ylim=(0, 40))
+    p2 = plot(time ./ 3600.0, view(tmp1, 1, :), label="0.20", xlabel="Time (hours)", ylabel="Temperature", ylim=(0, 40))
     plot!(time ./ 3600.0, view(tmp2, 1, :), label="0.3")
     plot!(time ./ 3600.0, view(tmp3, 1, :), label="0.6")
     plot!(time ./ 3600.0, view(tmp4, 1, :), label="2")
 
-    p3 = plot(time ./ 3600.0, view(tmp1, 2, :), label="0.15", xlabel="Time (hours)", ylabel="A", ylim=(0, 40))
+    p3 = plot(time ./ 3600.0, view(tmp1, 2, :), label="0.20", xlabel="Time (hours)", ylabel="A", ylim=(0, 40))
     plot!(time ./ 3600.0, view(tmp2, 1, :), label="0.3")
     plot!(time ./ 3600.0, view(tmp3, 1, :), label="0.6")
     plot!(time ./ 3600.0, view(tmp4, 1, :), label="2")
 
 
-    p4 = plot(time ./ 3600.0, view(tmp1, 3, :), label="0.15", xlabel="Time (hours)", ylabel="Gs")
+    p4 = plot(time ./ 3600.0, view(tmp1, 3, :), label="0.20", xlabel="Time (hours)", ylabel="Gs")
     plot!(time ./ 3600.0, view(tmp2, 1, :), label="0.3")
     plot!(time ./ 3600.0, view(tmp3, 1, :), label="0.6")
     plot!(time ./ 3600.0, view(tmp4, 1, :), label="2")
@@ -187,17 +187,17 @@ function plotSimR(time, p, env)
     df[!, "RH"] = env.RH.(time)
     df[!, "Ca"] = env.Ca.(time)
 
-    df[!, "Temp_0.15"] = view(tmp1, 1, :)
+    df[!, "Temp_0.20"] = view(tmp1, 1, :)
     df[!, "Temp_0.3"] = view(tmp2, 1, :)
     df[!, "Temp_0.6"] = view(tmp3, 1, :)
     df[!, "Temp_2"] = view(tmp4, 1, :)
 
-    df[!, "A_0.15"] = view(tmp1, 2, :)
+    df[!, "A_0.20"] = view(tmp1, 2, :)
     df[!, "A_0.3"] = view(tmp2, 2, :)
     df[!, "A_0.6"] = view(tmp3, 2, :)
     df[!, "A_2"] = view(tmp4, 2, :)
 
-    df[!, "Gs_0.15"] = view(tmp1, 3, :)
+    df[!, "Gs_0.20"] = view(tmp1, 3, :)
     df[!, "Gs_0.3"] = view(tmp2, 3, :)
     df[!, "Gs_0.6"] = view(tmp3, 3, :)
     df[!, "Gs_2"] = view(tmp4, 3, :)
@@ -229,9 +229,9 @@ end
 function envir(eod)
     (PAR = x -> 1500.0 * sin.(pi / eod * x), # Light intensity (umol m-2 s-1)
      Ca = x -> 425.0, # Air CO2 concentation (umol mol-1)
-     Tair = x -> 28.0, # Air temperature (degree C)
+     Tair = x -> 32.0, # Air temperature (degree C)
      RH = x -> 0.5, # Air relative humidity
-     Trefl = x -> 29.0, # Surrounding temperature (degree C)
+     Trefl = x -> 33.0, # Surrounding temperature (degree C)
      Pa = x -> 101300.0) # Atmospheric pressure (Pa)
 end
 
