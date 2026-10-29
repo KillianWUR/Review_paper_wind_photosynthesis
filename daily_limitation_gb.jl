@@ -62,7 +62,7 @@ function FvCB(PAR, Ci, T, Pa, Vcmax25, Jmax25, gm25, Abs, Curv, Rd25)
     Aj = (-b + sqrt(max(0.0, d))) / (2.0 * a)
 
     # CO2 compensation point
-    G = (Rd * Km + Vcmax * GS) / (Vcmax / Rd)
+    G = (Rd * Km + Vcmax * GS) / (Vcmax - Rd)
     return min(Ac, Aj), G, Rd
 end
 
